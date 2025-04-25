@@ -1,0 +1,46 @@
+name: Node.js CI/CD
+
+on:
+  push:
+    branches: [ dev,staging,master ]
+  pull_request:
+    branches: [ dev,staging,master ]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    services:
+      mongo:
+        image: mongo:latest
+        ports:
+          - 27017:27017
+        options: >-
+          --health-cmd="mongo --eval 'db.adminCommand(\"ping\")'" 
+          --health-interval=10s 
+          --health-timeout=5s 
+          --health-retries=5
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: 22
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Run migrations
+      env:
+        MONGO_URI: mongodb://localhost:27017/mydb
+        DB_NAME: mydb
+      run: npm run migrate:up
+
+    - name: Start App
+      env:
+        MONGO_URI: mongodb://localhost:27017/mydb
+        DB_NAME: mydb
+      run: npm start

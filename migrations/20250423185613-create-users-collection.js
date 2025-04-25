@@ -1,4 +1,4 @@
-module.exports = {
+export default  {
   async up(db, client) {
     await db.createCollection('users');
     await db.collection('users').createIndex({ email: 1 }, { unique: true });

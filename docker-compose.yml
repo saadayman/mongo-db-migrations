@@ -10,7 +10,8 @@ services:
     depends_on:
       - mongo
     environment:
-      - MONGO_URI=mongodb://mongo:27017/YOURDATABASENAME
+      - MONGO_URI=mongodb://mongo:27017/mydb
+      - DB_NAME=mydb
     volumes:
       - .:/app
       - /app/node_modules

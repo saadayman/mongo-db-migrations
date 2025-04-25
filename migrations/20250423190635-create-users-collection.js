@@ -1,6 +1,5 @@
-const axios = require("axios");
-
-module.exports = {
+import axios from "axios";
+export default  {
   async up(db) {
     try {
       const { data: users } = await axios.get("https://jsonplaceholder.typicode.com/users");

@@ -30,12 +30,12 @@ jobs:
 
     - name: Run migrations
       env:
-        MONGO_URI: mongodb://localhost:27017/mydb
+        MONGO_URI: mongodb+srv://sayman:sayman@cluster0.rl0sfdh.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
         DB_NAME: mydb
       run: npm run migrate:up
 
     - name: Start App
       env:
-        MONGO_URI: mongodb://localhost:27017/mydb
+        MONGO_URI: mongodb+srv://sayman:sayman@cluster0.rl0sfdh.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
         DB_NAME: mydb
       run: npm start
